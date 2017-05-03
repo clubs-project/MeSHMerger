@@ -1,0 +1,24 @@
+{
+  "name": "clubs-project/mesh-merger",
+  "description": "A software to merge different MeSH descriptor translations into one file",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Roland Ramthun",
+      "email": "ramthun@zpid.de"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "ClubsProject\\MeSHMerger\\": "src/"
+    }
+  },
+  "require": {
+    "hobnob/xml-stream-reader": "^1.0"
+  },
+  "require-dev": {
+    "clue/phar-composer": "^1.0"
+  },
+  "bin": ["src/entry_point.php"]
+}
