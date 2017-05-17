@@ -98,7 +98,7 @@ class MeSHDataCollector {
         $identifier = strval($node->termui);
         $term = $concept->getTerm($identifier);
         if (is_null($term)) {
-            echo("Added new term $identifier for concept" . $this->current_concept_id . PHP_EOL);
+            echo("Added new term $identifier for concept " . $this->current_concept_id . PHP_EOL);
             $term = new MeSHTerm($identifier);
         }
         //handle "normal" term, i.e. non permutation

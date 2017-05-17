@@ -1,11 +1,14 @@
 <?php
 require "vendor/autoload.php";
 
-if (version_compare(phpversion(), '7.0', '<')) {
-    echo("Your PHP version " . phpversion() . " is too old. Please use at least version 7.0." . PHP_EOL);
+//enforce minimum PHP version
+$minimum_php_version = "7.0";
+if (version_compare(phpversion(), $minimum_php_version, '<')) {
+    echo("Your PHP version " . phpversion() . " is too old. Please use at least version $minimum_php_version." . PHP_EOL);
     die(1);
 }
 
+//check if necessary extensions/classes are available
 if (!class_exists("\XMLWriter") || !class_exists("\SimpleXMLElement")) {
     echo("Your PHP version is lacking the necessary XML classes. Please install the XMLWriter, XML and (depending on your operating system and PHP version) SimpleXML PHP extensions." . PHP_EOL);
     die(1);
@@ -14,6 +17,7 @@ if (!class_exists("\XMLWriter") || !class_exists("\SimpleXMLElement")) {
 //try to disable PHP memory limit
 ini_set('memory_limit', '-1');
 
+//process file name arguments
 if (count($argv) < 3) {
     echo("Please specify at least two MeSH XML files to be merged" . PHP_EOL);
     echo("Usage example: 'php $argv[0] en.xml de.xml fr.xml es.xml'" . PHP_EOL);
@@ -48,10 +52,17 @@ $xmlParser->registerCallback('/DescriptorRecordSet/DescriptorRecord/ConceptList/
 
 //process all input files
 foreach ($source_files as $file) {
+    echo("Processing file " . strval($file) . "..." . PHP_EOL);
     $xmlParser->parse(fopen($file, 'r'));
 }
 
-//TODO Check if data structure is according to spec, e.g. no terms with only permutations, etc.
+//check the expectations concerning the data structures, before we output them
+echo("Checking structural expectations" . PHP_EOL);
+\ClubsProject\MeSHMerger\StructureExpectations::checkExpectations($mesh_data_collector->descriptors);
 
-//TODO make output filename/path configurable
-\ClubsProject\MeSHMerger\OutputGenerator::generateXml($mesh_data_collector->descriptors, "merged_MeSH.xml");
+//output XML
+$filename = "merged_MeSH.xml";
+echo("Writing output to file $filename..." . PHP_EOL);
+\ClubsProject\MeSHMerger\OutputGenerator::generateXml($mesh_data_collector->descriptors, $filename);
+
+echo("Finished!" . PHP_EOL);
