@@ -61,7 +61,7 @@ class MeSHTerm extends MeSHObject {
      * Returns the information, if this term is the preferred term of the concept
      * @return bool
      */
-    public function getPreferredTerm() {
+    public function isPreferredTerm() {
         return $this->preferred_term;
     }
 

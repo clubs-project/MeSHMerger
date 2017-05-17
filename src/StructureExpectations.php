@@ -59,7 +59,7 @@ class StructureExpectations {
                 $preferred_terms_for_language = [];
                 foreach ($concept->getAllTerms() as $term) {
                     /** @var MeSHTerm $term */
-                    if ($term->getPreferredTerm()) {
+                    if ($term->isPreferredTerm()) {
                         if (array_key_exists($term->getLanguage(), $preferred_terms_for_language)) {
                             throw new \Exception("Term " . $term->getId() . " is defined as preferred term for concept " . $concept->getId() . " in language " . $term->getLanguage() . ", but there is already a preferred term for this language with ID " . $preferred_terms_for_language[$term->getLanguage()]);
                         } else {

@@ -24,7 +24,7 @@ class OutputGenerator {
                     $oXMLout->startElement("term");
                     $oXMLout->writeAttribute("id", $term->getId());
                     $oXMLout->writeAttribute("lang", $term->getLanguage());
-                    $oXMLout->writeAttribute("preferred", $term->getPreferredTerm() ? 'true' : 'false');
+                    $oXMLout->writeAttribute("preferred", $term->isPreferredTerm() ? 'true' : 'false');
                     $oXMLout->writeElement("string", $term->getTerm());
                     foreach ($term->getPermutedTerms() as $permutation) {
                         $oXMLout->writeElement("permutation", $permutation);
