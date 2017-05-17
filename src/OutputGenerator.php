@@ -17,7 +17,7 @@ class OutputGenerator
             $oXMLout->startElement("descriptor");
             $oXMLout->writeAttribute("id", $descriptor->getId());
             foreach ($descriptor->getAllConcepts() as $concept) {
-                /** @var MeshConcept $concept */
+                /** @var MeSHConcept $concept */
                 $oXMLout->startElement("concept");
                 $oXMLout->writeAttribute("id", $concept->getId());
                 foreach ($concept->getAllTerms() as $term) {

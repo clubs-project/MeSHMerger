@@ -2,7 +2,7 @@
 namespace ClubsProject\MeSHMerger;
 
 
-class MeshConcept
+class MeSHConcept
 {
 
     private $id = null;
@@ -14,7 +14,7 @@ class MeshConcept
         if (!empty($id)) {
             $this->id = trim($id);
         } else {
-            throw new \Exception("ID for MeshConcept is empty.");
+            throw new \Exception("ID for MeSHConcept is empty.");
         }
     }
 

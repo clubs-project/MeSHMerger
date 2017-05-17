@@ -49,7 +49,7 @@ class MeSHDataCollector
             die(1);
         }
         if (is_null($descriptor->getConcept($identifier))) {
-            $descriptor->addConcept(new MeshConcept($identifier));
+            $descriptor->addConcept(new MeSHConcept($identifier));
             $this->descriptors[$this->current_descriptor_id] = $descriptor;
             echo("Added new concept $identifier to descriptor " . $descriptor->getId() . PHP_EOL);
         }
