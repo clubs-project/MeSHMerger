@@ -4,8 +4,7 @@ namespace ClubsProject\MeSHMerger;
 
 use Hobnob\XmlStreamReader\Parser;
 
-class MeSHDataCollector
-{
+class MeSHDataCollector {
 
     /**
      * Data structure to collect the multilingual information.
@@ -15,16 +14,39 @@ class MeSHDataCollector
      */
     public $descriptors = [];
 
+    /**
+     * The language of the currently processed Descriptor set
+     * @var null|string
+     */
     private $current_descriptors_language = null;
+
+    /**
+     * The Id of the currently processed Descriptor
+     * @var null|string
+     */
     private $current_descriptor_id = null;
+
+    /**
+     * The Id of the currently processed concept
+     * @var null|string
+     */
     private $current_concept_id = null;
 
-    public function handleDescriptorRecordSetLanguage(Parser $parser, string $attrValue)
-    {
+    /**
+     * Handles DescriptorRecordSet tags and sets the expected language of the terms from their value
+     * @param Parser $parser
+     * @param string $attrValue
+     */
+    public function handleDescriptorRecordSetLanguage(Parser $parser, string $attrValue) {
         $this->current_descriptors_language = $attrValue;
-        echo("Processing $attrValue data..." . PHP_EOL);
+        echo("Expecting $attrValue term data from DescriptorRecordSet..." . PHP_EOL);
     }
 
+    /**
+     * Handle a new Descriptor
+     * @param Parser            $parser
+     * @param \SimpleXMLElement $node
+     */
     public function handleDescriptorUI(Parser $parser, \SimpleXMLElement $node) {
         $identifier = strval($node);
         if (empty($identifier)) {
@@ -39,6 +61,11 @@ class MeSHDataCollector
         $this->current_descriptor_id = $identifier;
     }
 
+    /**
+     * Handle a new Concept. The concept is added to the current Descriptor.
+     * @param Parser            $parser
+     * @param \SimpleXMLElement $node
+     */
     public function handleConceptUI(Parser $parser, \SimpleXMLElement $node) {
         //get the descriptor for this concept
         $descriptor = $this->descriptors[$this->current_descriptor_id];
@@ -51,14 +78,18 @@ class MeSHDataCollector
         if (is_null($descriptor->getConcept($identifier))) {
             $descriptor->addConcept(new MeSHConcept($identifier));
             $this->descriptors[$this->current_descriptor_id] = $descriptor;
-            echo("Added new concept $identifier to descriptor " . $descriptor->getId() . PHP_EOL);
+            echo("Added new concept $identifier for descriptor " . $descriptor->getId() . PHP_EOL);
         }
         //update current concept id
         $this->current_concept_id = $identifier;
     }
 
+    /**
+     * Handel new terms. New terms are added to the current Concept.
+     * @param Parser            $parser
+     * @param \SimpleXMLElement $node
+     */
     public function handleTerm(Parser $parser, \SimpleXMLElement $node) {
-        //TODO :Check for emptiness of current* fields and if the array keys exist
         //get the descriptor for this term
         $descriptor = $this->descriptors[$this->current_descriptor_id];
         //get the concept for this term
@@ -67,6 +98,7 @@ class MeSHDataCollector
         $identifier = strval($node->termui);
         $term = $concept->getTerm($identifier);
         if (is_null($term)) {
+            echo("Added new term $identifier for concept" . $this->current_concept_id . PHP_EOL);
             $term = new MeSHTerm($identifier);
         }
         //handle "normal" term, i.e. non permutation
@@ -83,7 +115,7 @@ class MeSHDataCollector
         }
         //try to establish the language of the term. If the start of the termUI matches the current DescriptorRecordSet language,
         //we consider it to be in this language, otherwise English. This is crude, but there is no explicit language field on any term.
-        if (substr($identifier,0,strlen($this->current_descriptors_language)) == $this->current_descriptors_language) {
+        if (substr($identifier, 0, strlen($this->current_descriptors_language)) == $this->current_descriptors_language) {
             $term->setLanguage($this->current_descriptors_language);
         } else {
             $term->setLanguage('eng');

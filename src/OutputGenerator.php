@@ -2,8 +2,7 @@
 namespace ClubsProject\MeSHMerger;
 
 
-class OutputGenerator
-{
+class OutputGenerator {
 
     public static function generateXml(array $descriptors, string $filename) {
         $oXMLout = new \XMLWriter();

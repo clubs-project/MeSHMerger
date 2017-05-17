@@ -1,8 +1,7 @@
 <?php
 namespace ClubsProject\MeSHMerger;
 
-abstract class MeSHObject
-{
+abstract class MeSHObject {
 
     /**
      * The ID for this MeSH term, concept or descriptor
@@ -10,8 +9,7 @@ abstract class MeSHObject
      */
     private $id = null;
 
-    public function __construct(string $id)
-    {
+    public function __construct(string $id) {
         if (!empty($id)) {
             $this->id = trim($id);
         } else {

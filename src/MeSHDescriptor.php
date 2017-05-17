@@ -1,17 +1,24 @@
 <?php
 namespace ClubsProject\MeSHMerger;
 
-class MeSHDescriptor extends MeSHObject
-{
+class MeSHDescriptor extends MeSHObject {
 
+    /**
+     * array of Concepts for this Descriptor
+     * @var MeSHConcept[]
+     */
     private $concepts = [];
 
+    /**
+     * Adds the given Concept to this Descriptor
+     * @param MeSHConcept $concept
+     */
     public function addConcept(MeSHConcept $concept) {
         $this->concepts[$concept->getId()] = $concept;
     }
 
     /**
-     * Returns the Concept with the given Id or null, if this ID is unknown
+     * Returns the Concept with the given ID or null, if this ID is unknown
      * @param string $concept_id
      * @return MeSHConcept|null
      */
