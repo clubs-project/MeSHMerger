@@ -2,29 +2,9 @@
 namespace ClubsProject\MeSHMerger;
 
 
-class MeSHConcept
+class MeSHConcept extends MeSHObject
 {
-
-    private $id = null;
-
     private $terms = [];
-
-    public function __construct(string $id)
-    {
-        if (!empty($id)) {
-            $this->id = trim($id);
-        } else {
-            throw new \Exception("ID for MeSHConcept is empty.");
-        }
-    }
-
-    /**
-     * Returns the ID of this Concept
-     * @return string
-     */
-    public function getId() {
-        return $this->id;
-    }
 
     public function addTerm(MeSHTerm $term) {
         $this->terms[$term->getId()] = $term;

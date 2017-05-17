@@ -1,27 +1,14 @@
 <?php
 namespace ClubsProject\MeSHMerger;
 
-class MeSHTerm
+class MeSHTerm extends MeSHObject
 {
 
-    private $id = null;
     private $term = null;
     private $preferred_term = false;
     private $permuted_terms = [];
     private $language = null;
 
-    public function __construct(string $id)
-    {
-        $this->setId($id);
-    }
-
-    public function setId(string $id) {
-        $this->id = $id;
-    }
-
-    public function getId() {
-        return $this->id;
-    }
 
     public function addPermutedTerm(string $term) {
         $this->permuted_terms = array_unique(array_merge($this->permuted_terms, [$term]));
