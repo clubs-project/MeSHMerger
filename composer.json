@@ -15,6 +15,9 @@
     }
   },
   "require": {
+    "php": ">=7.0",
+    "ext-xml": "*",
+    "ext-xmlwriter": "*",
     "hobnob/xml-stream-reader": "^1.0"
   },
   "require-dev": {

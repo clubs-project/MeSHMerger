@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "53f2da21353e163f9a272d38c16573bf",
-    "content-hash": "2ae706da4f48418e004df21bd6fea715",
+    "hash": "c0a3f51b83c5430002ad2467120584d3",
+    "content-hash": "58011c82dcbb7f0ce0388eed2f2e22b0",
     "packages": [
         {
             "name": "hobnob/xml-stream-reader",
@@ -1026,6 +1026,10 @@
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": ">=7.0",
+        "ext-xml": "*",
+        "ext-xmlwriter": "*"
+    },
     "platform-dev": []
 }

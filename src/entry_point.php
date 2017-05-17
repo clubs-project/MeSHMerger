@@ -1,7 +1,15 @@
 <?php
 require "vendor/autoload.php";
 
-//TODO: Check for dependencies: XMLwriter, Xmlreader, PHP 7
+if (version_compare(phpversion(), '7.0', '<')) {
+    echo("Your PHP version " . phpversion() . " is too old. Please use at least version 7.0." . PHP_EOL);
+    die(1);
+}
+
+if (!class_exists("\XMLWriter") || !class_exists("\SimpleXMLElement")) {
+    echo("Your PHP version is lacking the necessary XML classes. Please install the XMLWriter, XML and (depending on your operating system and PHP version) SimpleXML PHP extensions." . PHP_EOL);
+    die(1);
+}
 
 //try to disable PHP memory limit
 ini_set('memory_limit', '-1');
