@@ -39,6 +39,11 @@ $xmlParser->registerCallback(
     );
 
 $xmlParser->registerCallback(
+    '/DescriptorRecordSet/DescriptorRecord/DescriptorUI',
+    [$mesh_data_collector, 'handleDescriptorUI']
+);
+
+$xmlParser->registerCallback(
     '/DescriptorRecordSet/DescriptorRecord/ConceptList/Concept/ConceptUI',
     [$mesh_data_collector, 'handleConceptUI']
 );
@@ -53,5 +58,8 @@ foreach ($source_files as $file) {
     $xmlParser->parse(fopen($file, 'r'));
 }
 
+
+//TODO Check if data structure is according to spec, e.g. no terms with only permutations, etc.
+
 //TODO make output filename/path configurable
-$mesh_data_collector->toXml("merged_MeSH.xml");
+\ClubsProject\MeSHMerger\OutputGenerator::generateXml($mesh_data_collector->descriptors, "merged_MeSH.xml");

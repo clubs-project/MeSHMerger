@@ -6,7 +6,7 @@ class MeSHTerm
 
     private $id = null;
     private $term = null;
-    private $preferred_term = null;
+    private $preferred_term = false;
     private $permuted_terms = [];
     private $language = null;
 
@@ -44,11 +44,8 @@ class MeSHTerm
         return $this->preferred_term;
     }
 
-    public function setPreferredTerm(string $preferred_term)
+    public function setPreferredTerm(bool $preferred_term)
     {
-        if (!is_null($this->preferred_term) && $this->preferred_term !== $preferred_term) {
-            throw new \Exception("Trying to set preferred term '$preferred_term'' - but it is already set to '$this->preferred_term'");
-        }
         $this->preferred_term = $preferred_term;
     }
 
@@ -64,6 +61,4 @@ class MeSHTerm
         }
         $this->term = $term;
     }
-
-
 }
