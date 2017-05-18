@@ -21,7 +21,7 @@ To combine several MeSH translations just give the file names of the uncompresse
 
 ## Getting the software
 
-You can download a ready-to-use version the MeSHMerger software on the CLUBS project homepage.
+You can download a ready-to-use version of the MeSHMerger software on the [publications page of the CLUBS project](https://www.clubs-project.eu/en/publications/).
 
 ## Building the software yourself
 If you want to build MeSHMerger yourself, you will need a working [Composer installation](https://getcomposer.org/doc/00-intro.md) on your computer. Then follow these instructions:
